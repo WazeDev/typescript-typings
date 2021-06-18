@@ -115,7 +115,6 @@ declare namespace WazeNS
                 hasState(): boolean;
                 isEmpty(): boolean;
                 isEmptyStreet(): boolean;
-
             }
 
             export interface City extends WazeNS.Model.Object<number>
