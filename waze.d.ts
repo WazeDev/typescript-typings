@@ -91,6 +91,17 @@ declare namespace WazeNS
 
     export interface Prefs {
         on(event: string, callback: any): void;
+        attributes: {
+            compactDensity: boolean;
+            enableTurnsByDefault: boolean;
+            isImperial: boolean;
+            keepLastSelectedTab: boolean;
+            requireFeatureDeselect: boolean;
+            showDismissedAlerts: boolean;
+            showTransparentTurnArrows: boolean;
+            spreadTurnArrows: boolean;
+            twoWaySegmentsByDefault: boolean;
+        }
     }
 
     namespace Model
