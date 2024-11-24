@@ -80,9 +80,9 @@ declare namespace WazeWrap
 
     namespace Alerts {
         function success(scriptName: string, message: string): void;
-        function info(scriptName: string, message: string, disableTimeout: boolean, disableClickToClose: boolean): void;
+        function info(scriptName: string, message: string, disableTimeout?:boolean, disableClickToClose?:boolean) : void;
         function warning(scriptName: string, message: string): void;
-        function error(scriptName: string, message: string): void;
+        function error(scriptName: string, message: string, disableTimeout?:boolean, disableClickToClose?:boolean) : void;
         function debug(scriptName: string, message: string): void;
         function prompt(scriptName: string, message: string, defaultText?: string, okFunction?: any, cancelFunction?: any): void;
         function confirm(scriptName: string, message: string, okFunction?: any, cancelFunction?: any, okBtnText?: string, cancelBtnText?: string): void;
