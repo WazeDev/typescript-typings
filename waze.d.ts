@@ -29,8 +29,11 @@ declare namespace WazeNS
         countries: Model.NumberRepository<WazeNS.Model.Object.Country>;
         venues: Model.VenueRepository;
         isLeftHand: boolean;
+        isImperial: boolean;
         lastTransactionID: string;
         managedAreas: Model.StringRepository<Model.Object.EditableArea>;
+        permanentHazards: Model.NumberRepository<WazeNS.Model.Object.PermHazard>;
+        schedules: Model.StringRepository<WazeNS.Model.Object.Schedule>;
         addRepository(e: any, t: any, i: any, n: any): void;
         getTurnGraph(): Model.Graph.TurnGraph;
         users: Model.NumberRepository<WazeNS.Model.Object.User>;
@@ -138,7 +141,7 @@ declare namespace WazeNS
         {
             export interface Address {
                 attributes: {
-                    altStreets: Array<WazeNS.Model.Object.Street>;
+                    altStreets: Array<WazeNS.Model.Object.Address>;
                     city: WazeNS.Model.Object.City;
                     country: WazeNS.Model.Object.Country;
                     houseNumber: string;
@@ -154,6 +157,7 @@ declare namespace WazeNS
                 getState(): WazeNS.Model.Object.State;
                 getStateName(): string;
                 hasState(): boolean;
+                getStreet(): WazeNS.Model.Object.Street;
                 isEmpty(): boolean;
                 isEmptyStreet(): boolean;
             }
@@ -309,6 +313,32 @@ declare namespace WazeNS
                 getName(): string;
                 isAdLocked(): boolean;
                 getGeometry(): GeoJSON.GeometryCollection;
+            }
+
+            export interface PermHazard extends Feature.Vector.PermHazard
+            {
+                attributes: {
+                    createdBy: number;
+                    createdOn: number;
+                    geometry: OpenLayers.Geometry.Collection;
+                    geoJSONGeometry: GeoJSON.GeometryCollection;
+                    id: string;
+                    lockRank: number;
+                    name: string;
+                    updatedBy: number;
+                    updatedOn: number;
+                };
+                getName(): string;
+                getGeometry(): GeoJSON.GeometryCollection;
+            }
+
+            export interface Schedule extends WazeNS.Model.Object<string>
+            {
+                attributes: {
+                    type: string;
+                    id: number;
+                    name: string;
+                }
             }
 
             export interface Segment extends Feature.Vector.Segment
@@ -719,6 +749,15 @@ declare namespace WazeNS
                 isResidential(): boolean;
 
             }
+    
+        export interface PermHazard extends WazeNS.Feature.Vector<string> {
+            getAddress(model: WazeNS.DataModel): WazeNS.Model.Object.Address;
+            getLockRank(): number;
+            getPointGeometry(): OpenLayers.Geometry.Point;
+            getPolygonGeometry(): OpenLayers.Geometry.Polygon;
+            getOLGeometry(): OpenLayers.Geometry;
+
+            }
         }
 
         export interface DrivingRestriction extends Restriction {
@@ -729,6 +768,7 @@ declare namespace WazeNS
 
         export interface Restriction {
             isExpired(): boolean;
+            isRepeatsYearly(): boolean;
         }
 
         export interface Vector<T> extends WazeNS.Model.Object<T>
